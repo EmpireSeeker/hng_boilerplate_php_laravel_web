@@ -217,8 +217,28 @@ Route::prefix('v1')->group(function () {
 
     });
 
+    //product for super admin
 
+    Route::middleware(['auth:sanctum', 'role:Administrator'])->prefix('admin')->group(function () {
 
+        // Get all products
+        Route::get('/products', [ProductController::class, 'index']);
+
+        // Search for products
+        Route::get('/products/search', [ProductController::class, 'search']);
+
+        // Get a single product
+        Route::get('/products/{product_id}', [ProductController::class, 'show']);
+
+        // Create a new product
+        Route::post('/products', [ProductController::class, 'store']);
+
+        // Update an existing product
+        Route::put('/products/{org_id}/{product_id}', [ProductController::class, 'update']);
+
+        // Delete a product
+        Route::delete('/products/{productId}', [ProductController::class, 'destroy']);
+    });
 
 
 
